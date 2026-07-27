@@ -1,0 +1,95 @@
+{% extends 'admin_view/base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal</title>
+</head>
+<body>
+    
+<h1>Welcome to the administrative portal!</h1>
+
+<div class="row my-4">
+
+    <div class="col-md-4">
+        <div class="card shadow border-0 bg-primary text-white">
+            <div class="card-body text-center">
+                <h4>Total Students</h4>
+                <h2>{{ students|length }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow border-0 bg-success text-white">
+            <div class="card-body text-center">
+                <h4>Subjects</h4>
+                <h6><li>Math</li><li>Science</li><li>English</li><li>History</li><li>Computer Science</li><li>All subjects</li></h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow border-0 bg-warning text-dark">
+            <div class="card-body text-center">
+                <h4>Active Students</h4>
+                <h2>{{ students|length }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<table class="table table-bordered table-striped table-hover shadow">
+
+    <thead class="table-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Enrollment Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.course }}</td>
+            <td>{{ student.enrollment_date }}</td>
+
+            <td>
+                <a href="{% url 'edit_student' student.id %}"
+                   class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+
+                <a href="{% url 'delete_student' student.id %}"
+                   class="btn btn-danger btn-sm">
+                    Delete
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">
+                No students found.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+</body>
+</html>
+
+{% endblock %}
